@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 
 let sql = 
     `DELETE karyawan 
-    WHERE id = '14'`
+     WHERE id = '14'`
 // menyambungkan atau membuka koneksi
 db.connect()
 

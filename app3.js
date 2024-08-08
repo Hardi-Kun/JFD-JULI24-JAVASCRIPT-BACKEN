@@ -2,7 +2,7 @@ const http = require('http')
 const fs   = require('fs')
 
 let server = http.createServer( function(request, respon){
-    console.log(request)
+    // console.log(request)
     if (request.url == '/') {
         respon.writeHead(200, {'Content-type': 'text/html'})
         respon.write('<h1>Halaman Beranda</h1>')
