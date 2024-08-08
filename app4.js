@@ -1,5 +1,7 @@
 const http  = require('http')
 const fs    = require('fs')
+const URL   = require('url')
+const QS    = require('querystring')
 const mysql = require('mysql2')
 
 //  konfigurasi database mysql yg ingin digunakan
@@ -15,6 +17,25 @@ db.connect()
 
 
 let server = http.createServer( function(request, respon){
+    
+    // console.log( qs.parse(URL.parse(request.url).query) )
+    let qstring = QS.parse(URL.parse(request.url).query) 
+    console.log(qstring.nama)
+    if (qstring.nama) {
+        db.query("SELECT * FROM karyawan WHERE Nama = ?", [qstring.nama], function(error, hasil) {
+            if (error) {
+                console.log(error)
+            } else {
+                return respon.write(
+                    `<pre>
+                    ${JSON.stringify(hasil)}
+                    </pre>
+                   `
+                )
+            }
+        })
+    }
+
     if (request.url == '/') {
         respon.writeHead(200, {'Content-type': 'text/html'})
         fs.createReadStream('./view/beranda.html').pipe(respon)
