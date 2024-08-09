@@ -35,7 +35,7 @@ let server = http.createServer( function(request, respon){
             }
         })
     }
-
+    
     if (request.url == '/') {
         respon.writeHead(200, {'Content-type': 'text/html'})
         fs.createReadStream('./view/beranda.html').pipe(respon)
