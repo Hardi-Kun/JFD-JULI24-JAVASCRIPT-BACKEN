@@ -1,3 +1,11 @@
+<style>
+    .padding-td{
+        padding: 5px;
+    }
+</style>
+
+
+
 <h1>Data Seluruh Karyawan PT Konoha Makmur Sentosa</h1>
 <hr>
 <table border="1">
@@ -6,15 +14,21 @@
             <th>Nama</th>
             <th>Gender</th>
             <th>NIP</th>
+            <th>Pilihan</th>
            
         </tr>
     </thead>
     <tbody>
         <% for (let i = 0; i < karyawan.length; i++) { %>
         <tr>
-            <td><%= karyawan[i].Nama %></td>
-            <td><%= karyawan[i].Gender %></td>
-            <td><%= karyawan[i].NIP %></td>
+            <td class=".padding-td"><%= karyawan[i].Nama %></td>
+            <td class=".padding-td"><%= karyawan[i].Gender %></td>
+            <td class=".padding-td"><%= karyawan[i].NIP %></td>
+            <td class=".padding-td">
+                <a href="/karyawan/detail/<%= karyawan[i].id %>">
+                    <button>Lihat Details</button>
+                </a>
+            </td>
         </tr>
             <% } %>
     </tbody>

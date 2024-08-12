@@ -1,0 +1,14 @@
+<% if (pegawai.length < 1) { %>
+    <h1>INVALID REQUEST</h1>
+<% } else { %>
+    <h1>Detail Karyawan</h1>
+    <hr>
+    Nama: <%= pegawai[0].Nama %> <br>
+    Gender: <%= (pegawai[0].Gender == 'L') ? 'Laki' : 'Perempuan' %> <br>
+    NIP: <%= pegawai[0].NIP %> <br>
+    Alamat: <%= pegawai[0].Alamat %> <br>
+    Departemen_id: <%= pegawai[0].Departemen_id %> <br>
+    Agama_id: <%= pegawai[0].Agama_id %> <br>
+    <hr>
+    <%= JSON.stringify(pegawai) %>
+<% } %>
