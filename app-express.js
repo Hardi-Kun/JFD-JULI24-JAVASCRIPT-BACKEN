@@ -88,13 +88,13 @@ function get_satukaryawan(idk) {
     let sql =  
     `SELECT 
         karyawan.*, 
-        departemen.kode, departemen.nama AS nama_dept, 
+        departemen.kode AS kode_dept, departemen.nama AS nama_dept, 
         agama.nama AS nama_agama
     FROM karyawan
     LEFT JOIN departemen    ON departemen.id = karyawan.departemenn_id 
     LEFT JOIN agama         ON agama.id = karyawan.agama_id
     WHERE karyawan.id = ?
-    `
+    ` ;
        return new Promise((resolve, reject) => {
             db.query(sql, [idk], function(errorSql, hasil) {
                 if (errorSql) {
@@ -107,6 +107,40 @@ function get_satukaryawan(idk) {
         
     }
 // proses pengambilan id dari db END
+
+
+app.get('/karyawan/hapus:id_karyawan', async function (req, res){
+    //  ambil id yg dikirim via url
+    let idk = req.params.id_karyawan
+    
+    // proses hapus data
+    try {
+        let hapus = await hapus_satuKaryawan(idk)
+        if (hapus.affectedRows > 0) {
+                res.redirect('/karyawan')
+        }
+    } catch (error) {
+        throw error
+    }  
+})
+
+function hapus_satuKaryawan(idk) {
+    let sql =  
+    `DELETE FROM karyawan
+    WHERE id = ?
+    ` ;
+    return new Promise((resolve, reject) => {
+        db.query(sql, [idk], function(errorSql, hasil) {
+            if (errorSql) {
+                reject(errorSql)
+            } else {
+                resolve(hasil)
+            }
+        })
+    })
+    
+}
+// proses penghapusan data END
 
 
 app.listen(port, function() {
