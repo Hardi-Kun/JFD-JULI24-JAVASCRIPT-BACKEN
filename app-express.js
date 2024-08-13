@@ -44,6 +44,7 @@ app.get('/profil', function(req, res) {
 })
 
 
+// proses pengambilan data dari mysql OPEND
 // proses pengambilan data dari mysql (INI AGAK RUMIT HARUS DIIPAKSA)
 function get_semuakaryawan () {
     return new Promise((resolve, reject) => {
@@ -70,6 +71,7 @@ app.get('/karyawan', async function(req, res) {
 // proses pengambilan data dari mysql END
 
 
+// proses pengambilan id dari db OPEND
 app.get('/karyawan/detail/:id_karyawan', async function(req, res){
     //  ambil id yg dikirim via url
     let idk = req.params.id_karyawan
@@ -83,17 +85,28 @@ app.get('/karyawan/detail/:id_karyawan', async function(req, res){
 
 
 function get_satukaryawan(idk) {
-        return new Promise((resolve, reject) => {
-            db.query("SELECT * FROM karyawan WHERE id = ?", [idk], function(errorSql, hasil) {
+    let sql =  
+    `SELECT 
+        karyawan.*, 
+        departemen.kode, departemen.nama AS nama_dept, 
+        agama.nama AS nama_agama
+    FROM karyawan
+    LEFT JOIN departemen    ON departemen.id = karyawan.departemenn_id 
+    LEFT JOIN agama         ON agama.id = karyawan.agama_id
+    WHERE karyawan.id = ?
+    `
+       return new Promise((resolve, reject) => {
+            db.query(sql, [idk], function(errorSql, hasil) {
                 if (errorSql) {
                     reject(errorSql)
                 } else {
-                   resolve(hasil)
+                    resolve(hasil)
                 }
             })
         })
-    
-}
+        
+    }
+// proses pengambilan id dari db END
 
 
 app.listen(port, function() {
