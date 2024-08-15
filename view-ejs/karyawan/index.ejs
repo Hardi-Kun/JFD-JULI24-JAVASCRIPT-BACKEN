@@ -36,6 +36,11 @@
                     <button>Lihat Details</button>
                 </a>
             </td>
+            <td class=".padding-td">
+                <a href="/karyawan/edit/<%= karyawan[i].id %>">
+                    <button style="background-color: yellow; color: white;">Edit</button>
+                </a>
+            </td>
             <td>
                 <a href="/karyawan/hapus<%= karyawan[i].id %>" onclick="return confirm('Yakin mau hapus <%= karyawan[i].Nama %> ??? ')">
                     <button style="background-color: red; color: white;">Hapus</button>

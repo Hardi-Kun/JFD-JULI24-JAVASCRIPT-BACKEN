@@ -111,7 +111,7 @@ function get_satukaryawan(idk) {
 // proses pengambilan id dari db END
 
 
-app.get('/karyawan/hapus:id_karyawan', async function (req, res){
+app.get('/karyawan/hapus/:id_karyawan', async function (req, res){
     //  ambil id yg dikirim via url
     let idk = req.params.id_karyawan
     
@@ -207,6 +207,54 @@ function insert_karyawan(req) {
 
     return new Promise((resolve, reject) => {
         db.query(sql, [data], function(errorSql, hasil) {
+            if (errorSql) {
+                reject(errorSql)
+            } else {
+                resolve(hasil)
+            }
+        })
+    })
+}
+
+
+app.get('/karyawan/edit/:id_karyawan', async function(req, res) {
+    let idk = req.params.id_karyawan
+    let dataview = {
+        dept    : await get_semuaDepartemen(),
+        agm     : await get_semuaAgama(),
+        pegawai : await get_satukaryawan(idk),
+    }
+    res.render('karyawan/form-edit', dataview)
+})
+
+
+
+app.post('/karyawan/proses-update/:id_karyawan', async function(req,res) {
+    let idk = req.params.id_karyawan
+    try {
+        let update = await update_karyawan(req, idk)
+        if (update.affectedRows > 0) {
+            res.redirect('/karyawan')
+        }
+    } catch (error) {
+        throw error
+    }
+})
+
+
+function update_karyawan(req, idk) {
+    let data = {
+        Nama              : req.body.form_nama_lengkap,
+        Gender            : req.body.form_gender,
+        Alamat            : req.body.form_alamat,
+        NIP               : req.body.form_NIP,
+        departemenn_id    : req.body.form_departemen,
+        agama_id          : req.body.form_agama
+    }
+    let sql = `UPDATE karyawan SET ? WHERE id = ?`;
+
+    return new Promise( (resolve,reject)=>{
+        db.query(sql, [data, idk], function(errorSql, hasil) {
             if (errorSql) {
                 reject(errorSql)
             } else {
