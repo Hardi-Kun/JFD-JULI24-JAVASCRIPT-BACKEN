@@ -22,6 +22,31 @@
     <input type="text" id="NIP" name="form_NIP" required>
     <br><br>
 
+    <label>Departemen</label>
+    <select name="form_departemen" id="departemen">
+        <option selected value="">--- pilih ---</option>
+        <% for (let i = 0; i < dept.length; i++) { %>
+           <option value="<%= dept[i].id %>"><%= dept[i].nama %></option>
+        <% } %>
+    </select>
+    <br><br>
+
+
+    <label>Agama</label>
+    <select name="form_agama" id="agama">
+        <option selected value="">--- pilih ---</option>
+        <% for (let i = 0; i < agm.length; i++) { %>
+           <option value="<%= agm[i].id %>"><%= agm[i].nama %></option>
+        <% } %>
+    </select>
+    <br><br>
+
+
     <button type="submit">Simpan</button>
 
 </form>
+
+<!-- <pre>
+    <%= JSON.stringify(dept, null, 4) %>
+    <%= JSON.stringify(agm, null, 4) %>
+</pre> -->
