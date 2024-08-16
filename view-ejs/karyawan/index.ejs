@@ -2,6 +2,8 @@
     .padding-td{
         padding: 5px;
     }
+
+    
 </style>
 
 
@@ -9,8 +11,17 @@
 <h1>Data Seluruh Karyawan PT Konoha Makmur Sentosa</h1>
 <hr>
 
+<% if (message) { %>
+    <div style="background-color: lightgreen; text-transform: capitalize; padding: 5px; text-align: center;"> 
+        <b><%= message %></b>
+    </div>
+<% } %>
+<br>
+
+
+
 <a href="/karyawan/tambah">
-    <button style="margin-bottom: 5px; background-color: aqua;">
+    <button class ="margin-bottom: 5px; background-color: aqua;">
         Tambah
     </button>
 </a>
@@ -21,7 +32,7 @@
             <th>Nama</th>
             <th>Gender</th>
             <th>NIP</th>
-            <th class="padding-td" colspan="2">Pilihan</th>
+            <th class="padding-td" colspan="3">Pilihan</th>
            
         </tr>
     </thead>
@@ -38,11 +49,11 @@
             </td>
             <td class=".padding-td">
                 <a href="/karyawan/edit/<%= karyawan[i].id %>">
-                    <button style="background-color: yellow; color: white;">Edit</button>
+                    <button style="background-color: yellow; color: black;">Edit</button>
                 </a>
             </td>
             <td>
-                <a href="/karyawan/hapus<%= karyawan[i].id %>" onclick="return confirm('Yakin mau hapus <%= karyawan[i].Nama %> ??? ')">
+                <a href="/karyawan/hapus/<%= karyawan[i].id %>" onclick="return confirm('Yakin mau hapus <%= karyawan[i].Nama %> ??? ')">
                     <button style="background-color: red; color: white;">Hapus</button>
                 </a>
             </td>
