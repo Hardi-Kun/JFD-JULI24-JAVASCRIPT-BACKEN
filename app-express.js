@@ -10,10 +10,10 @@ app.set('view engine', 'ejs') // setting penggunaan template engine untuk expres
 app.set('views', './view-ejs') // setting penggunaan folder untuk menyimpan file .ejs
 
 
-// 
-const m_karyawan = require('./models/m_karyawan')
-const m_departemen = require('./models/m_departemen')
-const m_agama = require('./models/m_agama')
+// include
+const m_karyawan    = require('./models/m_karyawan')
+const m_departemen  = require('./models/m_departemen')
+const m_agama       = require('./models/m_agama')
 
 
 app.get('/', function (req, res) {

@@ -7,6 +7,18 @@ const db = mysql.createConnection({
 })
 db.connect()
 
+function eksekusi(script_sql) {
+    return new Promise((resolve, reject) => {
+        db.query(script_sql, function(errorSql, hasil) {
+            if (errorSql) {
+                reject(errorSql)
+            } else {
+                resolve(hasil)
+            }
+        })
+    })
+}
+
 module.exports = {
-    db
+    db, eksekusi
 }
